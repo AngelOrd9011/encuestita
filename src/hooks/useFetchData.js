@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
 const useFetchData = () => {
-  const api_uri = import.meta.env.VITE_API_URI;
+  const api_uri = 'https://kong-estandarizacion.buengobierno.gob.mx/diep/encuesta';
   const [loadingData, setLoadingData] = useState(false);
 
   const fetchData = async (path, method, body) => {
