@@ -8,7 +8,7 @@ function App() {
   const { fetchData } = useFetchData();
 
   const executeFetch = async () => {
-    await fetchData('survey/', 'POST', { id: '68a8f5c85e6b02b365661338' }).then((_data) => setData(_data));
+    await fetchData('/survey/', 'POST', { id: '68a8f5c85e6b02b365661338' }).then((_data) => setData(_data));
   };
 
   useEffect(() => {

@@ -1,6 +1,7 @@
 import { Model } from 'survey-core';
 import 'survey-core/i18n/spanish';
 import { Survey } from 'survey-react-ui';
+import useFetchData from '../hooks/useFetchData';
 import useLocalStorage from '../hooks/useLocalStorage';
 
 const SurveyApplication = ({ encuesta }) => {
@@ -9,9 +10,17 @@ const SurveyApplication = ({ encuesta }) => {
   const [answers, setAnswers] = useLocalStorage('answers', {});
   const [anwered, setAnswered] = useLocalStorage('anwered', false);
   survey.data = answers;
+  const { fetchData } = useFetchData();
 
-  const onCompleteSurvey = (result) => {
-    alert(JSON.stringify(result.data));
+  const onCompleteSurvey = async (result) => {
+    await fetchData('/add-answer/', 'POST', {
+      id: '68a8f5c85e6b02b365661338',
+      respuesta: { ...result.data },
+    }).then((data) => {
+      if (data.status && data.status === 'success') {
+        setAnswered(true);
+      }
+    });
   };
 
   const onChange = (result) => {
@@ -22,7 +31,9 @@ const SurveyApplication = ({ encuesta }) => {
     <div className="grid">
       <div className="col-12">
         {anwered ? (
-          <div className="flex"></div>
+          <div className="flex justify-content-center flex-wrap">
+            <h3 class="animate__animated animate__tada">La encuesta ya fue contestada.</h3>
+          </div>
         ) : (
           <Survey model={survey} onComplete={onCompleteSurvey} onValueChanged={onChange} />
         )}
