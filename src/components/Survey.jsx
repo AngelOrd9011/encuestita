@@ -19,6 +19,7 @@ const SurveyApplication = ({ encuesta }) => {
     }).then((data) => {
       if (data.status && data.status === "success") {
         setAnswered(true);
+        setAnswers({});
       }
     });
   };
@@ -32,7 +33,7 @@ const SurveyApplication = ({ encuesta }) => {
       <div className="col-12">
         {anwered ? (
           <div className="flex justify-content-center flex-wrap">
-            <h1 class="animate__animated animate__tada">
+            <h1 class="animate__animated animate__tada text-center">
               ¡Gracias por contestar la encuesta!
             </h1>
           </div>
